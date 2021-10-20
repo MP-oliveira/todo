@@ -29,10 +29,16 @@ function App() {
   function filtrarTarefas(tarefa){
     if(filtro === 'todas') return tarefa;
 
-    if(filtro === 'completadas' && tarefa.completada) return tarefa;
+    if(filtro === 'completadas' && tarefa.completadas) return tarefa;
 
-    if(filtro === 'ativas' && !tarefa.completada) return tarefa;
+    if(filtro === 'ativas' && !tarefa.completadas) return tarefa;
 
+  }
+
+  function handleClearCompletadas(){
+      const tarefasIncompletas = tarefas.filter(tarefa => !tarefa.completadas);
+
+      setTarefas(tarefasIncompletas)
   }
 
   return (
@@ -41,7 +47,7 @@ function App() {
        <input type="text" onKeyPress={handleAddTodo} />  
        <div>
          <ul>
-           {tarefas.filter(filtrarTarefas).map(tarefa => <li><input type="checkbox" checked={tarefa.completadas} onChange={() => handleCompletetodo(tarefa)} />{tarefa.nome}</li>)}  
+           {tarefas.filter(filtrarTarefas).map(tarefa => <li><input type="checkbox" checked={tarefa.completadas} onChange={() => handleCompleteTodo(tarefa)} />{tarefa.nome}</li>)}  
          </ul>
        </div>
        <p>{tarefas.filter(tarefa => !tarefa.completadas).length} tarefas restantes</p>
@@ -50,7 +56,7 @@ function App() {
          <button onClick={() => handleFilterChange('ativas')}>Ativas</button>
          <button onClick={() => handleFilterChange('completadas')}>Completadas</button>
        </div>
-         <button>Limpar Completadas</button>
+         <button onClick={handleClearCompletadas}>Limpar Completadas</button>
      </div>
   );
 }
