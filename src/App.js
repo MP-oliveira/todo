@@ -6,14 +6,14 @@ function App() {
   const [filtro, setFiltro] = useState('todas')
  
   function handleAddTodo(e){
-    if (e.key !== 'Enter' || !e.target.value) return
+    if (e.key !== 'Enter' || !e.target.value) return;
 
-    const novatarefa = { nome:e.target.value, completadas: false }
+    const novatarefa = { nome: e.target.value, completadas: false }
     setTarefas([...tarefas, novatarefa ])
     e.target.value = '';
   }
 
-  function handleCompletetodo(tarefa){
+  function handleCompleteTodo(tarefa){
     const novasTarefas = [...tarefas];
     const tarefaCompletada = novasTarefas.find(t => t.nome === tarefa.nome)
     tarefaCompletada.completadas = !tarefaCompletada.completadas
