@@ -21,6 +21,14 @@ function App() {
     setTarefas(novasTarefas)
   }
 
+  
+  function handleDeleteTodo(tarefa){
+      const novasTarefas = tarefas.filter(t => t.nome !== tarefa.nome)
+
+      setTarefas(novasTarefas)
+  
+  }
+
   function handleFilterChange(novoFiltro){
     setFiltro(novoFiltro)
     
@@ -41,13 +49,24 @@ function App() {
       setTarefas(tarefasIncompletas)
   }
 
+  
+  function handleCompleteAll(){
+      const tarefasCompletadas = tarefas.map( tarefa =>{
+        return { nome: tarefa.nome, completadas: true}
+
+      })
+      setTarefas(tarefasCompletadas)
+  }
+
   return (
      <div>
        <h1>Tarefas</h1>
+
+       <button onClick={handleCompleteAll}>()</button>
        <input type="text" onKeyPress={handleAddTodo} />  
        <div>
          <ul>
-           {tarefas.filter(filtrarTarefas).map(tarefa => <li><input type="checkbox" checked={tarefa.completadas} onChange={() => handleCompleteTodo(tarefa)} />{tarefa.nome}</li>)}  
+           {tarefas.filter(filtrarTarefas).map(tarefa => <li><input type="checkbox" checked={tarefa.completadas} onChange={() => handleCompleteTodo(tarefa)} />{tarefa.nome} <button onClick={() => handleDeleteTodo(tarefa)}>X</button> </li>)}  
          </ul>
        </div>
        <p>{tarefas.filter(tarefa => !tarefa.completadas).length} tarefas restantes</p>
